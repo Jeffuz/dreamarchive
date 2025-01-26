@@ -1,6 +1,7 @@
 import { supabase } from "@/utils/supabase";
 import { NextResponse } from "next/server";
 
+// Get all dreams
 export async function GET() {
   try {
     const fetchAllDreamsQuery = supabase.from("dreams").select();
