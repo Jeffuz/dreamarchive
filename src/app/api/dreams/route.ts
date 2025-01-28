@@ -1,6 +1,7 @@
 import { supabase } from "@/utils/supabase";
 import { NextRequest, NextResponse } from "next/server";
-import { openai } from "@/utils/deepseek";
+import { deepseek } from "@/utils/deepseek";
+import { openai } from "@/utils/openai";
 
 // Get all dreams
 export async function GET() {
@@ -45,7 +46,7 @@ async function analyzeDream(dreamDescription: string) {
 
   Dream: "${dreamDescription}"
   `;
-  const completion = await openai.chat.completions.create({
+  const completion = await deepseek.chat.completions.create({
     messages: [
       {
         role: "user",
@@ -53,22 +54,57 @@ async function analyzeDream(dreamDescription: string) {
       }
     ],
     model: "deepseek-chat",
-    max_tokens: 500
+    response_format: { type: "json_object" },
+    max_tokens: 500,
   });
 
-  return completion.choices[0].message.content;
+  return completion.choices[0].message.content || "{}";
+}
+
+async function generateEmbedded(dreamDescription: string) {
+  const response = await openai.embeddings.create({
+    model: "text-embedding-ada-002",
+    input: dreamDescription,
+  });
+  return response.data[0].embedding;
 }
 
 // Create a dream
 export async function POST(req: NextRequest) {
   try {
-    const { description } = await req.json();
+    const { title, description } = await req.json();
+    // console.log("Loading title and desription...");
+
     // const insertDreamQuery = supabase.from("dreams").select().insert();
     // const { data, error } = await insertDreamQuery;
-    const analyze = await analyzeDream(description);
-    console.log(analyze)
 
-    return NextResponse.json("Test", { status: 200 })
+    // Extract theme and emotion
+    // console.log("Analyzing dream...")
+    const analyze = await analyzeDream(description);
+    const { themes, emotion_score } = JSON.parse(analyze);
+    // console.log("Successfully extracted themes and emotions")
+
+    // Generate embeddeding
+    const embedding = await generateEmbedded(description);
+    // console.log("Successfully stored in embeddings")
+
+    // Store data in db
+    const insertDreamQuery = supabase.from("dreams").insert([
+      {
+        user_id: "756c9ba5-b528-47fb-b702-d367d44db92f",
+        title,
+        description,
+        themes,
+        emotion_score,
+        embedding,
+      }
+    ]).select();
+    const { data, error } = await insertDreamQuery;
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    return NextResponse.json({ message: "Dream added successfully", dream: data }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   }
