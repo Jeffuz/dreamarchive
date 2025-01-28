@@ -23,7 +23,7 @@ export async function GET(
       .single();
     const { data, error } = await fetchSpecificDream;
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json({ error: "Invalid dream ID" }, { status: 400 });
     }
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
@@ -71,3 +71,37 @@ export async function PUT(
 }
 
 // Delete specific dream
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const id = (await params).id;
+  if (!id) {
+    return NextResponse.json(
+      { error: "Dream ID is required" },
+      { status: 400 }
+    );
+  }
+  try {
+    const deleteSpecificDream = supabase
+      .from("dreams")
+      .delete()
+      .eq("id", id)
+      .select();
+    const { data, error } = await deleteSpecificDream;
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    if (data.length === 0) {
+      return NextResponse.json({ error: "Dream not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(
+      { message: "Dream deleted successfully", dream: data },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  }
+}
