@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
       password,
       options: {
         data: {
-            username,
+          username,
         }
       }
     });

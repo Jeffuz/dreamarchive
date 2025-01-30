@@ -1,13 +1,61 @@
+"use client";
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import type React from "react"
 import Link from "next/link"
+import { FormEvent, useState } from "react"
 
 export function SignupForm({ className, ...props }: React.ComponentPropsWithoutRef<"form">) {
+    const [username, setUsername] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const handleSignUp = async (e: FormEvent) => {
+        e.preventDefault();
+        setError("");
+
+        const settings = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password,
+            })
+        }
+
+        if (password !== confirmPassword) {
+            setError("Passwords do not match")
+            return false;
+        }
+        try {
+            setLoading(true);
+            const response = await fetch(`http://localhost:3000/api/auth/signup`, settings);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return error;
+        } finally {
+            setLoading(false);
+            setUsername("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setError("");
+        }
+    }
+
     return (
-        <form className={cn("flex flex-col gap-6", className)} {...props}>
+        <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={handleSignUp}>
             <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Create an account</h1>
                 <p className="text-balance text-sm text-muted-foreground">Enter your details below to create your account</p>
@@ -15,22 +63,30 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
             <div className="grid gap-6">
                 <div className="grid gap-2">
                     <Label htmlFor="username">Username</Label>
-                    <Input id="username" type="text" placeholder="johndoe" required />
+                    <Input id="username" type="text" placeholder="johndoe" value={username} onChange={(e) => setUsername(e.target.value)} required />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="m@example.com" required />
+                    <Input id="email" type="email" placeholder="m@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="password">Password</Label>
-                    <Input id="password" type="password" required />
+                    <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="confirm-password">Confirm Password</Label>
-                    <Input id="confirm-password" type="password" required />
+                    <Input id="confirm-password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                    {!error ? <div></div> : <div className="text-red-500 text-sm">{error}</div>}
                 </div>
                 <Button type="submit" className="w-full">
-                    Sign Up
+                    {loading ? (
+                        <div className="flex items-center gap-2">
+                            <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                            Signing Up...
+                        </div>
+                    ) : (
+                        "Sign Up"
+                    )}
                 </Button>
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                     <span className="relative z-10 bg-background px-2 text-muted-foreground">Or continue with</span>
