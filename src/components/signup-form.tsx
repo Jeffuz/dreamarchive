@@ -43,13 +43,9 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
             const data = await response.json();
             return data;
         } catch (error) {
-            return error;
+            console.log(error)
         } finally {
             setLoading(false);
-            setUsername("");
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
             setError("");
         }
     }
