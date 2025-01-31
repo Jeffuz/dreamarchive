@@ -14,10 +14,10 @@ export default function Home() {
       <Navbar />
       <main className="relative z-10  space-y-24">
         <Hero />
-        <Problem />
-        <div className="bg-[#111827]">
-          <Showcase />
+        <div className="bg-[#111827] py-20">
+          <Problem />
         </div>
+        <Showcase />
         <HowItWorks />
       </main>
       <Particles

@@ -4,6 +4,25 @@ import { Users } from "lucide-react"
 import Safari from "@/components/ui/safari"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { BlurFade } from "@/components/ui/blur-fade"
+import { AvatarCircles } from "@/components/ui/avatar-circles"
+
+const avatars = [
+    {
+        imageUrl: "https://avatars.githubusercontent.com/u/16860528",
+    },
+    {
+        imageUrl: "https://avatars.githubusercontent.com/u/20110627",
+    },
+    {
+        imageUrl: "https://avatars.githubusercontent.com/u/106103625",
+    },
+    {
+        imageUrl: "https://avatars.githubusercontent.com/u/59228569",
+    },
+    {
+        imageUrl: "https://avatars.githubusercontent.com/u/59442788",
+    },
+];
 
 export default function Hero() {
     return (
@@ -34,7 +53,8 @@ export default function Hero() {
                 <div className="flex items-center gap-4 mb-8">
                     <BlurFade delay={0.25} direction="up" inView>
                         <div className="flex items-center gap-2 text-sm text-gray-400">
-                            <Users className="h-4 w-4" />
+                            <AvatarCircles numPeople={99} avatarUrls={avatars} />
+                            <Users className="h-4 w-4 ml-2" />
                             <span>10k+ dreamers already on board</span>
                         </div>
                     </BlurFade>

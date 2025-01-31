@@ -26,7 +26,7 @@ export default function Showcase() {
 
     return (
         <section>
-            <div className="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-[980px] max-lg:px-6 py-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-[980px] max-lg:px-6">
                 <div className="space-y-6">
                     <div className="space-y-2">
                         <Badge variant="outline" className="border-gray-800 border-2 text-gray-400">
