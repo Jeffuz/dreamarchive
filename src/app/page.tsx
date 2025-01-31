@@ -3,32 +3,28 @@
 import Navbar from "@/app/components/navbar";
 import Hero from "./components/hero";
 import Showcase from "./components/showcase";
-
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-
 import { Particles } from "@/components/ui/particles";
+import HowItWorks from "./components/howItWorks";
+import Problem from "./components/problem";
 
 export default function Home() {
-  const { resolvedTheme } = useTheme();
-  const [color, setColor] = useState("#ffffff");
-
-  useEffect(() => {
-    setColor(resolvedTheme === "dark" ? "#ffffff" : "#000000");
-  }, [resolvedTheme]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#030712]">
       <Navbar />
-      <main className="relative z-10 mx-auto max-w-[980px] max-lg:px-6">
+      <main className="relative z-10  space-y-24">
         <Hero />
-        <Showcase />
+        <Problem />
+        <div className="bg-[#111827]">
+          <Showcase />
+        </div>
+        <HowItWorks />
       </main>
       <Particles
         className="absolute inset-0 z-0"
         quantity={100}
         ease={80}
-        color={color}
+        color={"#fff"}
         refresh
       />
     </div>
