@@ -5,6 +5,8 @@ import Safari from "@/components/ui/safari"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { AvatarCircles } from "@/components/ui/avatar-circles"
+import { Particles } from "@/components/ui/particles";
+
 
 const avatars = [
     {
@@ -61,6 +63,13 @@ export default function Hero() {
                 </div>
                 <Safari url="dreamarchive.com" className="size-full" />
             </div>
+            <Particles
+                className="absolute inset-0 z-0"
+                quantity={100}
+                ease={80}
+                color={"#fff"}
+                refresh
+            />
         </section>
     )
 }
