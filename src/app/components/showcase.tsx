@@ -2,6 +2,8 @@ import { Badge } from "@/components/ui/badge"
 import { Brain, Moon, Sparkles } from "lucide-react"
 import type React from "react"
 import { IconCloud } from "@/components/ui/icon-cloud"
+import { BlurFade } from "@/components/ui/blur-fade"
+import { TextAnimate } from "@/components/ui/text-animate"
 
 const dreamIcons = [
     "https://cdn-icons-png.flaticon.com/512/1163/1163624.png", // Crescent Moon (Dreams)
@@ -29,35 +31,45 @@ export default function Showcase() {
             <div className="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-[980px] max-lg:px-6">
                 <div className="space-y-6">
                     <div className="space-y-2">
-                        <Badge variant="outline" className="border-gray-800 border-2 text-gray-400">
-                            AI-Powered Analysis
-                        </Badge>
-                        <h2 className="text-2xl font-bold text-[#F3F4F6]">Record and analyze your dreams</h2>
-                        <p className="text-gray-400">
+                        <BlurFade delay={0.25} direction="up" inView>
+                            <Badge variant="outline" className="border-gray-800 border-2 text-gray-400">
+                                AI-Powered Analysis
+                            </Badge>
+                        </BlurFade>
+                        <div className="text-2xl font-bold text-[#F3F4F6]">Record and analyze your dreams</div>
+                        <TextAnimate animation="slideUp" by="word" className="text-gray-400">
                             Our advanced AI helps you identify patterns, symbols, and recurring themes in your dreams.
-                        </p>
+                        </TextAnimate>
                     </div>
                     <div className="grid gap-4">
-                        <Feature
-                            icon={<Moon className="h-4 w-4" />}
-                            title="Dream Journal"
-                            description="Easily record your dreams with our intuitive interface"
-                        />
-                        <Feature
-                            icon={<Brain className="h-4 w-4" />}
-                            title="Theme Analysis"
-                            description="Uncover hidden meanings and patterns in your dreams"
-                        />
-                        <Feature
-                            icon={<Sparkles className="h-4 w-4" />}
-                            title="AI Insights"
-                            description="Get personalized interpretations and connections"
-                        />
-                        <Feature
-                            icon={<Sparkles className="h-4 w-4" />}
-                            title="AI Insights"
-                            description="Get personalized interpretations and connections"
-                        />
+                        <BlurFade delay={0.45} direction="up" inView>
+                            <Feature
+                                icon={<Moon className="h-4 w-4" />}
+                                title="Dream Journal"
+                                description="Easily record your dreams with our intuitive interface"
+                            />
+                        </BlurFade>
+                        <BlurFade delay={0.60} direction="up" inView>
+                            <Feature
+                                icon={<Brain className="h-4 w-4" />}
+                                title="Theme Analysis"
+                                description="Uncover hidden meanings and patterns in your dreams"
+                            />
+                        </BlurFade>
+                        <BlurFade delay={0.75} direction="up" inView>
+                            <Feature
+                                icon={<Sparkles className="h-4 w-4" />}
+                                title="AI Insights"
+                                description="Get personalized interpretations and connections"
+                            />
+                        </BlurFade>
+                        <BlurFade delay={0.90} direction="up" inView>
+                            <Feature
+                                icon={<Sparkles className="h-4 w-4" />}
+                                title="AI Insights"
+                                description="Get personalized interpretations and connections"
+                            />
+                        </BlurFade>
                     </div>
                 </div>
                 {/* Right hand Side */}

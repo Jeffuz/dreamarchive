@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/ui/marquee";
 import { Star } from "lucide-react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { TextAnimate } from "@/components/ui/text-animate";
 
 const reviews = [
     {
@@ -79,10 +81,14 @@ export function Testimonials() {
     return (
         <section className="relative flex flex-col items-center justify-center w-full bg-[#111827] py-16 px-6">
             <div className="text-center mb-10">
-                <div className="text-3xl font-bold text-white">What People Are Saying</div>
-                <div className="text-lg text-gray-400 mt-2">
-                    Don&apos;t just take our word for it. Here&apos;s what real people are saying about Dream Archive.
-                </div>
+                <TextAnimate animation="slideUp" by="word" className="text-3xl font-bold text-white">
+                    What People Are Saying
+                </TextAnimate>
+                <BlurFade delay={0.25} direction="up" inView>
+                    <div className="text-lg text-gray-400 mt-2">
+                        Don&apos;t just take our word for it. Here&apos;s what real people are saying about Dream Archive.
+                    </div>
+                </BlurFade>
             </div>
 
             <div className="relative flex w-full flex-col items-center overflow-hidden">
