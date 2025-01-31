@@ -93,7 +93,7 @@ export function LoginForm({
           Login with Google
         </Button>
       </div>
-      <div className="text-center text-sm">
+      <div className="text-center text-sm text-[#F3F4F6]">
         Don&apos;t have an account?{" "}
         <Link href={"/auth/signup"} className="underline underline-offset-4">
           Sign up
