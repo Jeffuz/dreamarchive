@@ -4,8 +4,8 @@ import Navbar from "@/app/components/navbar";
 import Hero from "./components/hero";
 import Showcase from "./components/showcase";
 import { Particles } from "@/components/ui/particles";
-import HowItWorks from "./components/howItWorks";
 import Problem from "./components/problem";
+import { Testimonials } from "./components/testimonials";
 
 export default function Home() {
 
@@ -18,7 +18,7 @@ export default function Home() {
           <Problem />
         </div>
         <Showcase />
-        <HowItWorks />
+        <Testimonials />
       </main>
       <Particles
         className="absolute inset-0 z-0"
