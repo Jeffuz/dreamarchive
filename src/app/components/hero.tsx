@@ -39,7 +39,7 @@ export default function Hero() {
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                     <BlurFade delay={0.25} direction="up" inView>
                         <Button size="lg" className="bg-lime-400 hover:bg-lime-500 text-gray-900 shadow-lg">
-                            <Link href="/signup">
+                            <Link href="/dashboard">
                                 Get started now
                                 <span className="ml-2">→</span>
                             </Link>

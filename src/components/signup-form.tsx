@@ -39,7 +39,8 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
         }
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:3000/api/auth/signup`, settings);
+            const baseUrl = window.location.origin;
+            const response = await fetch(`${baseUrl}/api/auth/signup`, settings);
             const data = await response.json();
             return data;
         } catch (error) {

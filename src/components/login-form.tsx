@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { FormEvent, useState } from "react"
 import { supabase } from "@/utils/supabase";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
@@ -15,6 +16,8 @@ export function LoginForm({
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -33,13 +36,15 @@ export function LoginForm({
 
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3000/api/auth/signin`, settings);
+      const baseUrl = window.location.origin;
+      const response = await fetch(`${baseUrl}/api/auth/signin`, settings);
       const user_data = await response.json();
       const { error } = await supabase.auth.setSession({
         access_token: user_data.session.access_token,
         refresh_token: user_data.session.refresh_token,
       })
       if (error) throw Error;
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
     } finally {
@@ -63,12 +68,12 @@ export function LoginForm({
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password" className="text-[#F3F4F6]">Password</Label>
-            <Link
+            {/* <Link
               href="/"
-              className="ml-auto text-sm underline-offset-4 hover:underline"
+              className="ml-auto text-sm underline-offset-4 hover:underline text-[#F3F4F6]"
             >
               Forgot your password?
-            </Link>
+            </Link> */}
           </div>
           <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-[#27272A] text-white" required />
         </div>
