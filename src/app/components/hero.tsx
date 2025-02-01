@@ -19,12 +19,6 @@ const avatars = [
     {
         imageUrl: "https://www.jeffzhang.net/profile_images/jeffv1.JPG",
     },
-    {
-        imageUrl: "https://www.jeffzhang.net/profile_images/jeffv1.JPG",
-    },
-    {
-        imageUrl: "https://www.jeffzhang.net/profile_images/jeffv1.JPG",
-    },
 ];
 
 export default function Hero() {

@@ -1,8 +1,14 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Trees } from "lucide-react"
+import { Session } from "@supabase/supabase-js";
 
-export default function Component() {
+interface NavbarProps {
+    session: Session | null;
+}
+
+export default function Component({ session }: NavbarProps) {
+    console.log(session);
     return (
         <header className="sticky top-0 z-50 w-full border-b max-lg:px-6 bg-[#030712] border-gray-400">
             <div className="container mx-auto flex h-16 max-w-[980px] items-center justify-between">

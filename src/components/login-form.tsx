@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { FormEvent, useState } from "react"
+import { supabase } from "@/utils/supabase";
 
 export function LoginForm({
   className,
@@ -33,9 +34,12 @@ export function LoginForm({
     try {
       setLoading(true);
       const response = await fetch(`http://localhost:3000/api/auth/signin`, settings);
-      const data = await response.json();
-      console.log("Logged In")
-      return data;
+      const user_data = await response.json();
+      const { error } = await supabase.auth.setSession({
+        access_token: user_data.session.access_token,
+        refresh_token: user_data.session.refresh_token,
+      })
+      if (error) throw Error;
     } catch (error) {
       console.log(error);
     } finally {
