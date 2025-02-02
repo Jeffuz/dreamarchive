@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
 import { Session } from "@supabase/supabase-js";
+import { Sidebar } from "@/components/sidebar";
 
 export default function Dashboard() {
     const [userData, setUserData] = useState<Session | null>(null);
@@ -32,7 +33,7 @@ export default function Dashboard() {
 
     return (
         <div>
-
+            <Sidebar />
         </div>
     )
 }
