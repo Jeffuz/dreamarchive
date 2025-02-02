@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { Bell, Moon, BarChart2, Calendar, Settings, Book, Clock, Trees } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Particles } from "@/components/ui/particles";
+import { useEffect, useState } from "react";
+
 
 const menuItems = [
     { icon: Moon, label: "Dreams", href: "/dashboard" },
@@ -13,9 +16,19 @@ const menuItems = [
 
 export function Sidebar() {
     const user = { username: "John Doe", email: "johndoe@gmail.com" };
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [currentTime])
 
     return (
-        <div className="h-screen w-64 bg-[#030712] text-[#F3F4F6] fixed inset-y-0 left-0">
+        // Adjust Gradient
+        <div className="h-screen w-64 bg-gradient-to-b from-[#030712] to-[#030712] text-[#F3F4F6] fixed inset-y-0 left-0">
             {/* Header */}
             <div className="flex items-center justify-between h-16 px-4 border-b border-gray-700">
                 <Link href="/" className="flex items-center gap-2 px-4">
@@ -46,9 +59,9 @@ export function Sidebar() {
                     <Link
                         key={index}
                         href={item.href}
-                        className="flex items-center px-4 py-2 text-[#F3F4F6] hover:bg-[#27272A]  rounded-lg mb-2"
+                        className="flex items-center px-4 py-2 text-[#F3F4F6] hover:bg-[#27272A] transition duration-200 rounded-lg mb-2"
                     >
-                        <item.icon className="mr-3 h-6 w-6" />
+                        <item.icon className="mr-3 h-5 w-5 text-lime-400" />
                         <div>{item.label}</div>
                     </Link>
                 ))}
@@ -56,14 +69,22 @@ export function Sidebar() {
 
             {/* Notifications */}
             <div className="absolute bottom-0 w-full p-4 border-t border-gray-700">
-                <button className="flex items-center justify-between w-full px-4 py-2 text-[#F3F4F6] hover:bg-[#27272A] rounded-lg">
-                    <div className="flex items-center">
-                        <Bell className="mr-3 h-6 w-6" />
-                        <div>Notifications</div>
-                    </div>
-                    <div className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">3</div>
-                </button>
+                <div className="text-center rounded-lg space-y-1">
+                    <div className="text-md font-semibold tracking-wide">{currentTime.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                    })}</div>
+                    <div className="text-sm text-gray-400 tracking-wide">{currentTime.toLocaleTimeString()}</div>
+                </div>
             </div>
+            <Particles
+                className="absolute inset-0 z-0"
+                quantity={100}
+                ease={80}
+                color={"#fff"}
+                refresh
+            />
         </div>
     );
 }
