@@ -39,7 +39,7 @@ export default function Dashboard() {
         getSession()
     }, [router]);
 
-    console.log(userData)
+    // console.log(userData)
 
     // Anti flickering
     if (!userData) {
@@ -49,7 +49,7 @@ export default function Dashboard() {
     return (
         <div className="flex">
             <Sidebar currentPage={currentPage} onCurrentPage={setCurrentPage} />
-            <main className="bg-[#030712] h-screen w-full z-10">
+            <main className="bg-[#030712] h-screen w-full overflow-hidden z-10">
                 {pageComponents[currentPage]}
             </main>
         </div>
