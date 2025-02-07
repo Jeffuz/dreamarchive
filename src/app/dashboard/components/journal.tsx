@@ -1,3 +1,9 @@
-export default function Journal() {
+import React from 'react'
 
-};
+const Journal = () => {
+    return (
+        <div>journal</div>
+    )
+}
+
+export default Journal

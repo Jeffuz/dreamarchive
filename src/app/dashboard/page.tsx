@@ -1,10 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
 import { Session } from "@supabase/supabase-js";
 import { Sidebar } from "@/components/sidebar";
+import Dreams from "./components/dreams";
+import Journal from "./components/journal";
+import Analytics from "./components/analytics";
+import Calendar from "./components/calendar";
+import Settings from "./components/settings";
+
+const pageComponents: { [key: string]: JSX.Element } = {
+    "Dreams": <Dreams />,
+    "Journal": <Journal />,
+    "Analytics": <Analytics />,
+    "Calendar": <Calendar />,
+    "Settings": <Settings />
+}
 
 export default function Dashboard() {
     const [userData, setUserData] = useState<Session | null>(null);
@@ -30,12 +43,15 @@ export default function Dashboard() {
 
     // Anti flickering
     if (!userData) {
-        return <div>Test</div>
+        return <div className="bg-[#030712]"></div>
     }
 
     return (
-        <div>
+        <div className="flex">
             <Sidebar currentPage={currentPage} onCurrentPage={setCurrentPage} />
+            <main className="bg-[#030712] h-screen w-full z-10">
+                {pageComponents[currentPage]}
+            </main>
         </div>
     )
 }
