@@ -1,6 +1,5 @@
 "use client";
-
-import { JSX, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
 import { Session } from "@supabase/supabase-js";
@@ -11,12 +10,12 @@ import Analytics from "./components/analytics";
 import Calendar from "./components/calendar";
 import Settings from "./components/settings";
 
-const pageComponents: { [key: string]: JSX.Element } = {
-    "Dreams": <Dreams />,
-    "Journal": <Journal />,
-    "Analytics": <Analytics />,
-    "Calendar": <Calendar />,
-    "Settings": <Settings />
+const PageComponents: { [key: string]: React.ComponentType<{ userData: Session | null }> } = {
+    "Dreams": Dreams,
+    "Journal": Journal,
+    "Analytics": Analytics,
+    "Calendar": Calendar,
+    "Settings": Settings,
 }
 
 export default function Dashboard() {
@@ -44,11 +43,13 @@ export default function Dashboard() {
         return <div className="bg-[#030712]"></div>
     }
 
+    const SelectedPage = PageComponents[currentPage];
+
     return (
         <div className="flex">
             <Sidebar currentPage={currentPage} onCurrentPage={setCurrentPage} userData={userData} />
             <main className="bg-[#030712] h-screen w-full overflow-hidden z-10">
-                {pageComponents[currentPage]}
+                <SelectedPage userData={userData} />
             </main>
         </div>
     )

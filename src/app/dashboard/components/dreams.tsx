@@ -10,8 +10,14 @@ import { PlusCircle } from 'lucide-react'
 import { useState } from 'react'
 import Modal from '@/components/modal'
 import { useToast } from '@/hooks/use-toast'
+import { Session } from "@supabase/supabase-js";
 
-const Dreams = () => {
+
+interface dreamsProps {
+    userData: Session | null,
+}
+
+const Dreams = ({ userData }: dreamsProps) => {
     const { toast } = useToast();
     const [dreamModal, setDreamModal] = useState<boolean>(false);
     const [title, setTitle] = useState<string>("");
@@ -27,6 +33,7 @@ const Dreams = () => {
         body: JSON.stringify({
             title: title,
             description: description,
+            user_id: userData?.user?.id
         })
     }
 

@@ -72,7 +72,7 @@ async function generateEmbedded(dreamDescription: string) {
 // Create a dream
 export async function POST(req: NextRequest) {
   try {
-    const { title, description } = await req.json();
+    const { title, description, user_id } = await req.json();
     // console.log("Loading title and desription...");
 
     // const insertDreamQuery = supabase.from("dreams").select().insert();
@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
     // Store data in db
     const insertDreamQuery = supabase.from("dreams").insert([
       {
-        user_id: "756c9ba5-b528-47fb-b702-d367d44db92f",
+        user_id,
         title,
         description,
         themes,
