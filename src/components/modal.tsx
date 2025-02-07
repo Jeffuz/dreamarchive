@@ -21,7 +21,7 @@ export default function Modal({
             {/* Modal */}
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`bg-[#030712] md:rounded-xl shadow p-6 transition-all md:w-auto w-screen md:h-auto h-screen ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"
+                className={`bg-[#030712] md:rounded-xl shadow p-6 transition-all md:w-auto w-screen md:h-auto h-screen md:border border-gray-800 ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"
                     }`}
             >
                 {/* X Button */}

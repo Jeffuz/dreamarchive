@@ -8,10 +8,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Particles } from "@/components/ui/particles";
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress"
+import { Session } from "@supabase/supabase-js";
 
 interface sidebarProps {
     currentPage: string,
     onCurrentPage: (currentPage: string) => void,
+    userData: Session | null,
 }
 
 const menuItems = [
@@ -23,8 +25,7 @@ const menuItems = [
     { icon: Settings, label: "Settings" },
 ];
 
-export function Sidebar({ currentPage, onCurrentPage }: sidebarProps) {
-    const user = { username: "John Doe", email: "johndoe@gmail.com" };
+export function Sidebar({ currentPage, onCurrentPage, userData }: sidebarProps) {
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -46,7 +47,7 @@ export function Sidebar({ currentPage, onCurrentPage }: sidebarProps) {
                 <div className="flex items-center justify-between h-16 px-4 border-b border-gray-700">
                     <Link href="/" className="flex items-center gap-2 px-4">
                         <Trees className="h-6 w-6 text-lime-400" />
-                        <span className="font-bold text-xl text-[#F3F4F6]">Dream Archive</span>
+                        <span className="font-bold text-xl text-[#F3F4F6] whitespace-nowrap flex items-center">Dream Archive</span>
                     </Link>
                 </div>
 
@@ -56,12 +57,12 @@ export function Sidebar({ currentPage, onCurrentPage }: sidebarProps) {
                         {/* Avatar */}
                         <Avatar className="w-10 h-10 mr-3">
                             <AvatarImage src="https://www.gravatar.com/avatar/?d=mp" />
-                            <AvatarFallback>{user?.username.charAt(0)}</AvatarFallback>
+                            <AvatarFallback>{userData?.user?.user_metadata?.username.charAt(0)}</AvatarFallback>
                         </Avatar>
 
                         <div>
-                            <div className="font-medium">{user.username}</div>
-                            <div className="text-sm text-gray-400">{user.email}</div>
+                            <div className="font-medium">{userData?.user?.user_metadata?.username}</div>
+                            <div className="text-sm text-gray-400">{userData?.user?.user_metadata?.email}</div>
                         </div>
                     </div>
                     {/* Streak */}
