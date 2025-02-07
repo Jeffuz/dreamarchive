@@ -1,20 +1,29 @@
 import Link from "next/link";
-import { Moon, BarChart2, Calendar, Settings, Book, Clock, Trees } from "lucide-react";
+import {
+    Moon, BarChart2, Calendar, Settings, Book,
+    // Clock, 
+    Trees
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Particles } from "@/components/ui/particles";
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress"
 
+interface sidebarProps {
+    currentPage: string,
+    onCurrentPage: (currentPage: string) => void,
+}
+
 const menuItems = [
-    { icon: Moon, label: "Dreams", href: "/dashboard" },
-    { icon: BarChart2, label: "Analytics", href: "/dashboard/analytics" },
-    { icon: Calendar, label: "Calendar", href: "/dashboard/calendar" },
-    { icon: Book, label: "Dream Journal", href: "/dashboard/journal" },
-    { icon: Clock, label: "Sleep Patterns", href: "/dashboard/sleep" },
-    { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+    { icon: Moon, label: "Dreams" },
+    { icon: Book, label: "Journal" },
+    { icon: Calendar, label: "Calendar" },
+    { icon: BarChart2, label: "Analytics" },
+    // { icon: Clock, label: "Sleep Patterns"},
+    { icon: Settings, label: "Settings" },
 ];
 
-export function Sidebar() {
+export function Sidebar({ currentPage, onCurrentPage }: sidebarProps) {
     const user = { username: "John Doe", email: "johndoe@gmail.com" };
     const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -67,18 +76,18 @@ export function Sidebar() {
             {/* Navigation */}
             <div className="px-4">
                 {menuItems.map((item, index) => (
-                    <Link
+                    <button
                         key={index}
-                        href={item.href}
-                        className="flex items-center px-4 py-2 text-[#F3F4F6] hover:bg-[#27272A] transition duration-200 rounded-lg mb-2"
+                        onClick={() => onCurrentPage(item.label)}
+                        className={`flex items-center px-4 py-2 text-[#F3F4F6] hover:bg-[#27272A] transition duration-200 rounded-lg mb-2 w-full ${currentPage === item.label ? 'bg-gray-700' : ""} `}
                     >
                         <item.icon className="mr-3 h-5 w-5 text-lime-400" />
                         <div>{item.label}</div>
-                    </Link>
+                    </button>
                 ))}
             </div>
 
-            {/* Notifications */}
+            {/* Time */}
             <div className="absolute bottom-0 w-full p-4 border-t border-gray-700">
                 <div className="text-center rounded-lg space-y-1">
                     <div className="text-md font-semibold tracking-wide">{currentTime.toLocaleDateString("en-US", {
@@ -96,6 +105,6 @@ export function Sidebar() {
                 color={"#fff"}
                 refresh
             />
-        </div>
+        </div >
     );
 }

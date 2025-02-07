@@ -8,6 +8,8 @@ import { Sidebar } from "@/components/sidebar";
 
 export default function Dashboard() {
     const [userData, setUserData] = useState<Session | null>(null);
+    const [currentPage, setCurrentPage] = useState("Dreams");
+
     const router = useRouter();
 
     useEffect(() => {
@@ -33,7 +35,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            <Sidebar />
+            <Sidebar currentPage={currentPage} onCurrentPage={setCurrentPage} />
         </div>
     )
 }
