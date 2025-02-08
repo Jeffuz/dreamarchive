@@ -11,8 +11,18 @@ import Modal from '@/components/modal'
 import { useToast } from '@/hooks/use-toast'
 import { Session } from "@supabase/supabase-js";
 
+import { AnimatedList } from '@/components/magicui/animated-list'
+import { DreamNotification } from '@/components/DreamNotification'
+
 interface dreamsProps {
     userData: Session | null,
+}
+
+interface DreamItem {
+    id: string;
+    title: string;
+    description: string;
+    created_at: string;
 }
 
 const Dreams = ({ userData }: dreamsProps) => {
@@ -21,7 +31,7 @@ const Dreams = ({ userData }: dreamsProps) => {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [dreamData, setDreamData] = useState<[] | null>([]);
+    const [dreamData, setDreamData] = useState<DreamItem[]>([]);
 
 
     const handleCreateDream = async () => {
@@ -101,8 +111,6 @@ const Dreams = ({ userData }: dreamsProps) => {
         },
     ]
 
-    console.log(dreamData);
-
     return (
         <>
             <div className='flex-1 space-y-6 p-8'>
@@ -133,14 +141,23 @@ const Dreams = ({ userData }: dreamsProps) => {
                     }
                 </div>
                 {/* Bottom Sections */}
-                <div className='grid grid-cols-3 gap-4'>
+                <div className='grid grid-cols-3 gap h-full'>
                     <div className='col-span-2'>Test</div>
                     {/* Dream History past Week */}
-                    <div>
-
+                    <div className='flex flex-col h-full gap-5'>
+                        {/* Title */}
+                        <div className='text-[#F3F4F6]  font-semibold text-xl'>
+                            Dream History
+                        </div>
+                        <AnimatedList>
+                            {dreamData.map((item) => (
+                                <DreamNotification key={item.id} {...item} />
+                            ))}
+                        </AnimatedList>
                     </div>
                 </div>
             </div>
+
             <Modal open={dreamModal} onClose={() => setDreamModal(false)}>
                 <div className='w-full md:w-96 h-full flex flex-col'>
                     {/* Title */}
