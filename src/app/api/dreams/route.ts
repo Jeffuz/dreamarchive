@@ -4,14 +4,20 @@ import { deepseek } from "@/utils/deepseek";
 import { openai } from "@/utils/openai";
 
 // Get all dreams
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     // const { data: { user }, error: authError } = await supabase.auth.getUser()
     // if (authError || !user) {
     //   return NextResponse.json({ error: "Not authorized: Please log in" }, { status: 401 });
     // }
+    const { searchParams } = new URL(req.url);
+    const user_id = searchParams.get("user_id");
 
-    const fetchAllDreamsQuery = supabase.from("dreams").select()
+    if (!user_id) {
+      return NextResponse.json({ error: "Missing user_id" }, { status: 400 });
+    }
+
+    const fetchAllDreamsQuery = supabase.from("dreams").select().eq("user_id", user_id)
     // .eq("user_id", user.id);
     const { data, error } = await fetchAllDreamsQuery;
     if (error) {

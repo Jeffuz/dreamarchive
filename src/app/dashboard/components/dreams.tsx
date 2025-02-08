@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Card,
     CardContent,
@@ -7,11 +7,9 @@ import {
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { PlusCircle } from 'lucide-react'
-import { useState } from 'react'
 import Modal from '@/components/modal'
 import { useToast } from '@/hooks/use-toast'
 import { Session } from "@supabase/supabase-js";
-
 
 interface dreamsProps {
     userData: Session | null,
@@ -23,21 +21,22 @@ const Dreams = ({ userData }: dreamsProps) => {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+    const [dreamData, setDreamData] = useState<[] | null>([]);
 
-    const settings = {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            title: title,
-            description: description,
-            user_id: userData?.user?.id
-        })
-    }
 
     const handleCreateDream = async () => {
+        const settings = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: title,
+                description: description,
+                user_id: userData?.user?.id
+            })
+        }
         try {
             setLoading(true);
             const baseUrl = window.location.origin;
@@ -49,6 +48,8 @@ const Dreams = ({ userData }: dreamsProps) => {
                 variant: "default",
                 className: "bg-[#030712] border border-gray-700 text-lime-400",
             });
+            setTitle("");
+            setDescription("");
         } catch (error) {
             console.log(error)
             toast({
@@ -61,6 +62,21 @@ const Dreams = ({ userData }: dreamsProps) => {
             setDreamModal(false);
         }
     }
+
+    useEffect(() => {
+        const getDreamHistory = async () => {
+            try {
+                const baseUrl = window.location.origin;
+                const response = await fetch(`${baseUrl}/api/dreams?user_id=${userData?.user?.id}`);
+                const user_data = await response.json();
+                setDreamData(user_data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getDreamHistory();
+    }, [userData?.user?.id])
 
     const dataStats = [
         {
@@ -85,6 +101,7 @@ const Dreams = ({ userData }: dreamsProps) => {
         },
     ]
 
+    console.log(dreamData);
 
     return (
         <>
@@ -114,6 +131,14 @@ const Dreams = ({ userData }: dreamsProps) => {
                             </Card>
                         ))
                     }
+                </div>
+                {/* Bottom Sections */}
+                <div className='grid grid-cols-3 gap-4'>
+                    <div className='col-span-2'>Test</div>
+                    {/* Dream History past Week */}
+                    <div>
+
+                    </div>
                 </div>
             </div>
             <Modal open={dreamModal} onClose={() => setDreamModal(false)}>
