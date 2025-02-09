@@ -113,7 +113,7 @@ const Dreams = ({ userData }: dreamsProps) => {
 
     return (
         <>
-            <div className='flex-1 space-y-6 p-8'>
+            <div className='flex-1 space-y-6 p-8 h-screen overflow-auto'>
                 {/* Title */}
                 <div className="flex items-center justify-between space-y-2">
                     <div className="text-3xl font-bold tracking-tight text-[#F3F4F6]">Dreams</div>
@@ -141,17 +141,17 @@ const Dreams = ({ userData }: dreamsProps) => {
                     }
                 </div>
                 {/* Bottom Sections */}
-                <div className='grid grid-cols-3 gap h-full'>
-                    <div className='col-span-2'>Test</div>
+                <div className='grid grid-cols-3 gap overflow-hidden'>
+                    <div className='col-span-2'></div>
                     {/* Dream History past Week */}
-                    <div className='flex flex-col h-full gap-5'>
+                    <div className='flex flex-col gap-5 border border-gray-800 rounded-xl p-3'>
                         {/* Title */}
-                        <div className='text-[#F3F4F6]  font-semibold text-xl'>
+                        <div className='text-[#F3F4F6]  font-semibold text-xl m-2'>
                             Dream History
                         </div>
-                        <AnimatedList>
-                            {dreamData.map((item) => (
-                                <DreamNotification key={item.id} {...item} />
+                        <AnimatedList className='flex-grow overflow-y-auto max-h-[60vh]'>
+                            {dreamData.map((item, index) => (
+                                <div className='m-2' key={index}><DreamNotification key={item.id} {...item} /></div>
                             ))}
                         </AnimatedList>
                     </div>

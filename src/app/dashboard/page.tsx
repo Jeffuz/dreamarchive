@@ -48,7 +48,7 @@ export default function Dashboard() {
     return (
         <div className="flex">
             <Sidebar currentPage={currentPage} onCurrentPage={setCurrentPage} userData={userData} />
-            <main className="bg-[#030712] h-screen w-full overflow-hidden z-10">
+            <main className="bg-[#030712] w-full overflow-x-hidden z-10">
                 <SelectedPage userData={userData} />
             </main>
         </div>
