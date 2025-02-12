@@ -1,13 +1,17 @@
 import Link from "next/link";
 import {
-    Moon, BarChart2, Calendar, Settings, Book,
+    Moon,
+    // BarChart2,
+    //  Calendar,
+    //   Settings, 
+    //   Book,
     // Clock, 
     Trees
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Particles } from "@/components/ui/particles";
 import { useEffect, useState } from "react";
-import { Progress } from "@/components/ui/progress"
+// import { Progress } from "@/components/ui/progress"
 import { Session } from "@supabase/supabase-js";
 
 interface sidebarProps {
@@ -18,11 +22,11 @@ interface sidebarProps {
 
 const menuItems = [
     { icon: Moon, label: "Dreams" },
-    { icon: Book, label: "Journal" },
-    { icon: Calendar, label: "Calendar" },
-    { icon: BarChart2, label: "Analytics" },
+    // { icon: Book, label: "Journal" },
+    // { icon: Calendar, label: "Calendar" },
+    // { icon: BarChart2, label: "Analytics" },
     // { icon: Clock, label: "Sleep Patterns"},
-    { icon: Settings, label: "Settings" },
+    // { icon: Settings, label: "Settings" },
 ];
 
 export function Sidebar({ currentPage, onCurrentPage, userData }: sidebarProps) {
@@ -36,8 +40,8 @@ export function Sidebar({ currentPage, onCurrentPage, userData }: sidebarProps) 
         return () => clearInterval(intervalId);
     }, [currentTime])
 
-    const dreamStreak = 5; // use as state later
-    const streakProgress = (dreamStreak / 7) * 100
+    // const dreamStreak = 5; // use as state later
+    // const streakProgress = (dreamStreak / 7) * 100
 
     return (
         // Adjust Gradient
@@ -67,11 +71,11 @@ export function Sidebar({ currentPage, onCurrentPage, userData }: sidebarProps) 
                     </div>
                     {/* Streak */}
                     <div className="px-4 mt-4 space-y-2">
-                        <div className="text-sm font-medium text-gray-400 mb-1">Dream Streak</div>
+                        {/* <div className="text-sm font-medium text-gray-400 mb-1">Dream Streak</div>
                         <Progress value={streakProgress} className="h-2 bg-[#27272A]" />
                         <div className="text-xs text-gray-400 mt-1">
                             {dreamStreak} days - {7 - dreamStreak} more for weekly summary!
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 

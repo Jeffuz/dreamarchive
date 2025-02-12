@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+// import {
+//     Card,
+//     CardContent,
+//     CardHeader,
+//     CardTitle,
+// } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { PlusCircle } from 'lucide-react'
 import Modal from '@/components/modal'
@@ -13,6 +13,9 @@ import { Session } from "@supabase/supabase-js";
 
 import { AnimatedList } from '@/components/magicui/animated-list'
 import { DreamNotification } from '@/components/DreamNotification'
+import { PieChartDonut } from '@/components/ui/PieChartDonut'
+import { EmotionScoreChart } from '@/components/ui/EmotionScoreChart'
+// import WeeklyDreamTracker from '@/components/WeeklyDreamTracker'
 
 interface dreamsProps {
     userData: Session | null,
@@ -88,34 +91,35 @@ const Dreams = ({ userData }: dreamsProps) => {
         getDreamHistory();
     }, [userData?.user?.id])
 
-    const dataStats = [
-        {
-            "title": "Dream Streak",
-            "content": "5 Days",
-            "numbers": "2 more for weekly summary"
-        },
-        {
-            "title": "Total Dreams",
-            "content": "42",
-            "numbers": "+12 from last month"
-        },
-        {
-            "title": "Avg. Sentiment",
-            "content": "Positive",
-            "numbers": "+8% from last week"
-        },
-        {
-            "title": "Common Theme",
-            "content": "Flying",
-            "numbers": "12 occurrences"
-        },
-    ]
+    console.log(dreamData)
+    // const dataStats = [
+    //     {
+    //         "title": "Dream Streak",
+    //         "content": "5 Days",
+    //         "numbers": "2 more for weekly summary"
+    //     },
+    //     {
+    //         "title": "Total Dreams",
+    //         "content": "42",
+    //         "numbers": "+12 from last month"
+    //     },
+    //     {
+    //         "title": "Avg. Sentiment",
+    //         "content": "Positive",
+    //         "numbers": "+8% from last week"
+    //     },
+    //     {
+    //         "title": "Common Theme",
+    //         "content": "Flying",
+    //         "numbers": "12 occurrences"
+    //     },
+    // ]
 
     return (
         <>
             <div className='flex-1 space-y-6 p-8 h-screen overflow-auto'>
                 {/* Title */}
-                <div className="flex items-center justify-between space-y-2">
+                {/* <div className="flex items-center justify-between space-y-2">
                     <div className="text-3xl font-bold tracking-tight text-[#F3F4F6]">Dreams</div>
                     <div className="flex items-center space-x-2">
                         <Button onClick={() => setDreamModal(true)} className='bg-lime-400 hover:bg-lime-500 text-[#030712] transition duration-200'>
@@ -123,9 +127,9 @@ const Dreams = ({ userData }: dreamsProps) => {
                             Record Dream
                         </Button>
                     </div>
-                </div>
+                </div> */}
                 {/* Stats */}
-                <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
+                {/* <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
                     {
                         dataStats.map((card, index) => (
                             <Card key={index} className='text-[#F3F4F6] border-gray-800 bg-[#030712]/50'>
@@ -139,17 +143,37 @@ const Dreams = ({ userData }: dreamsProps) => {
                             </Card>
                         ))
                     }
-                </div>
+                </div> */}
                 {/* Bottom Sections */}
-                <div className='grid grid-cols-3 gap overflow-hidden'>
-                    <div className='col-span-2'></div>
-                    {/* Dream History past Week */}
-                    <div className='flex flex-col gap-5 border border-gray-800 rounded-xl p-3'>
-                        {/* Title */}
-                        <div className='text-[#F3F4F6]  font-semibold text-xl m-2'>
-                            Dream History
+                <div className='grid grid-cols-3 gap-8 h-full'>
+                    <div className='col-span-2 flex flex-col gap-8'>
+                        {/* <WeeklyDreamTracker dreamData={dreamData} /> */}
+                        <div className='flex gap-4'>
+                            {/* Title */}
+                            <div className="flex items-center justify-between space-y-2 w-full">
+                                <div className="text-3xl font-bold tracking-tight text-[#F3F4F6]">Dreams</div>
+                            </div>
                         </div>
-                        <AnimatedList className='flex-grow overflow-y-auto max-h-[60vh]'>
+                        <div className='grid grid-cols-2 gap-8'>
+                            <PieChartDonut dreamData={dreamData} />
+                            <EmotionScoreChart dreamData={dreamData} />
+                        </div>
+                    </div>
+                    {/* Dream History past Week */}
+                    <div className='flex flex-col gap-5 border border-gray-800 rounded-xl p-3 h-full overflow-hidden'>
+                        {/* Title */}
+                        <div className='flex justify-between m-2'>
+                            <div className='text-[#F3F4F6]  font-semibold text-xl'>
+                                Dream History
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Button onClick={() => setDreamModal(true)} className='bg-lime-400 hover:bg-lime-500 text-[#030712] transition duration-200'>
+                                    <PlusCircle className="mr-2 h-4 w-4" />
+                                    Record Dream
+                                </Button>
+                            </div>
+                        </div>
+                        <AnimatedList className='flex-1 overflow-y-auto'>
                             {dreamData.map((item, index) => (
                                 <div className='m-2' key={index}><DreamNotification key={item.id} {...item} /></div>
                             ))}
