@@ -15,6 +15,7 @@ import { AnimatedList } from '@/components/magicui/animated-list'
 import { DreamNotification } from '@/components/DreamNotification'
 import { PieChartDonut } from '@/components/ui/PieChartDonut'
 import { EmotionScoreChart } from '@/components/ui/EmotionScoreChart'
+import WeeklySummary from '@/components/WeeklySummary'
 // import WeeklyDreamTracker from '@/components/WeeklyDreamTracker'
 
 interface dreamsProps {
@@ -158,6 +159,7 @@ const Dreams = ({ userData }: dreamsProps) => {
                             <PieChartDonut dreamData={dreamData} />
                             <EmotionScoreChart dreamData={dreamData} />
                         </div>
+                        <WeeklySummary />
                     </div>
                     {/* Dream History past Week */}
                     <div className='flex flex-col gap-5 border border-gray-800 rounded-xl p-3 h-full overflow-hidden'>
