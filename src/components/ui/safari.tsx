@@ -154,7 +154,7 @@ export default function Safari({
             y="52"
             width="1200"
             height="700"
-            preserveAspectRatio="xMidYMid slice"
+            preserveAspectRatio="xMidYMid meet"
             clipPath="url(#roundedBottom)"
           >
             <video

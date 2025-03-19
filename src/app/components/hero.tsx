@@ -59,7 +59,11 @@ export default function Hero() {
                         </div>
                     </BlurFade>
                 </div>
-                <Safari url="dreamarchive.com" className="size-full" />
+                <Safari
+                    url="dreamarchive.com"
+                    imageSrc="/DreamArchive.png"
+                    className="size-full"
+                />
             </div>
             <Particles
                 className="absolute inset-0 z-0"
