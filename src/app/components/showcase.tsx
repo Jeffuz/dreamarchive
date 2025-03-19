@@ -63,13 +63,13 @@ export default function Showcase() {
                                 description="Get personalized interpretations and connections"
                             />
                         </BlurFade>
-                        <BlurFade delay={0.90} direction="up" inView>
+                        {/* <BlurFade delay={0.90} direction="up" inView>
                             <Feature
                                 icon={<Sparkles className="h-4 w-4" />}
                                 title="AI Insights"
                                 description="Get personalized interpretations and connections"
                             />
-                        </BlurFade>
+                        </BlurFade> */}
                     </div>
                 </div>
                 {/* Right hand Side */}

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Trees } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { supabase } from "@/utils/supabase";
@@ -64,12 +64,12 @@ export default function Component() {
                     <span className="font-bold text-xl text-[#F3F4F6]">Dream Archive</span>
                 </Link>
                 {!userData ? <div className="flex items-center gap-4">
-                    <Button size="sm" className="bg-[#030712] hover:bg-[#030712] hover:text-lime-400 transition duration-300" asChild>
+                    {/* <Button size="sm" className="bg-[#030712] hover:bg-[#030712] hover:text-lime-400 transition duration-300" asChild>
                         <Link href="/auth/login">Log In</Link>
                     </Button>
                     <Button size="sm" className="bg-lime-400 hover:bg-lime-500 text-[#030712]" asChild>
                         <Link href="/auth/signup">Sign Up</Link>
-                    </Button>
+                    </Button> */}
                 </div> :
                     <Menubar className="flex items-center">
                         <MenubarMenu>
