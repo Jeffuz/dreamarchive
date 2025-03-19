@@ -159,7 +159,7 @@ const Dreams = ({ userData }: dreamsProps) => {
                             <PieChartDonut dreamData={dreamData} />
                             <EmotionScoreChart dreamData={dreamData} />
                         </div>
-                        <WeeklySummary />
+                        <WeeklySummary userID={userData?.user?.id ?? ""} />
                     </div>
                     {/* Dream History past Week */}
                     <div className='flex flex-col gap-5 border border-gray-800 rounded-xl p-3 h-full overflow-hidden'>

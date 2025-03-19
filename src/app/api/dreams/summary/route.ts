@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/supabase";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { deepseek } from "@/utils/deepseek";
 
 // https://www.geeksforgeeks.org/cosine-similarity/
@@ -54,7 +54,8 @@ async function analyzeDream(dreamTexts: string) {
 }
 
 
-export async function GET() {
+export async function POST(req: NextRequest) {
+    const { user_id } = await req.json();
     try {
         // Grab embeddings from past week of dreams
         const lastWeek = new Date();
@@ -63,7 +64,7 @@ export async function GET() {
         const fetchDreamsFromPastWeek = supabase
             .from("dreams")
             .select("id, title, description, embedding")
-            .eq("user_id", "756c9ba5-b528-47fb-b702-d367d44db92f")
+            .eq("user_id", user_id)
             .gte("created_at", lastWeek.toISOString());
 
         const { data: dreams, error } = await fetchDreamsFromPastWeek;
