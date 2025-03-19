@@ -11,13 +11,16 @@ import { NumberTicker } from "@/components/ui/number-ticker"
 
 const avatars = [
     {
-        imageUrl: "https://www.jeffzhang.net/profile_images/jeffv1.JPG",
+        imageUrl: "https://randomuser.me/api/portraits/men/32.jpg",
     },
     {
-        imageUrl: "https://www.jeffzhang.net/profile_images/jeffv1.JPG",
+        imageUrl: "https://randomuser.me/api/portraits/women/45.jpg",
     },
     {
-        imageUrl: "https://www.jeffzhang.net/profile_images/jeffv1.JPG",
+        imageUrl: "https://randomuser.me/api/portraits/men/76.jpg",
+    },
+    {
+        imageUrl: "https://randomuser.me/api/portraits/women/12.jpg",
     },
 ];
 
@@ -39,8 +42,8 @@ export default function Hero() {
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                     <BlurFade delay={0.25} direction="up" inView>
                         <Button size="lg" className="bg-lime-400 hover:bg-lime-500 text-gray-900 shadow-lg">
-                            <Link href="/dashboard">
-                                Get started now
+                            <Link href="#contact">
+                                Join the Waitlist
                                 <span className="ml-2">→</span>
                             </Link>
                         </Button>
@@ -53,7 +56,7 @@ export default function Hero() {
                             <AvatarCircles numPeople={99} avatarUrls={avatars} />
                             <Users className="h-4 w-4 ml-2" />
                             <span> <NumberTicker
-                                value={1000}
+                                value={100}
                                 className="text-gray-400 tracking-tighter"
                             />+ dreamers already on board</span>
                         </div>

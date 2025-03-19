@@ -4,7 +4,7 @@ import { BlurFade } from "@/components/ui/blur-fade";
 
 export function Footer() {
     return (
-        <footer className="w-full text-white px-6 pb-20">
+        <footer className="w-full text-white px-6 pb-20" id="contact">
             <div className="max-w-7xl mx-auto flex flex-col items-center space-y-6">
 
                 {/* Logo & Name */}
@@ -22,7 +22,7 @@ export function Footer() {
                             <Github size={20} className="text-gray-400 hover:text-white transition" />
                         </Link>
                         <Link href="mailto:jeffzhang0049@gmail.com">
-                            <Mail size={20} className="text-gray-400 hover:text-white transition" />
+                            <Mail size={20} className="text-lime-400 hover:text-lime-500 transition" />
                         </Link>
                     </div>
                 </BlurFade>
